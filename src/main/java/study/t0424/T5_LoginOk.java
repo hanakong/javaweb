@@ -35,7 +35,7 @@ public class T5_LoginOk extends HttpServlet {
 		}
 		else {
 			out.print("<script>");
-			out.print("alert('"+mid+"님 로그아웃 되었습니다.');");
+			out.print("alert('"+mid+"님 로그아웃 되었습니다1.');");
 			out.print("location.href='"+request.getContextPath()+"/study/0425_storage/t5_Login.jsp';");
 			out.print("</script>");
 //			viewPage = "/study/0425_storage/t5_Login.jsp";
