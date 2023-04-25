@@ -29,8 +29,8 @@
 					</c:forEach>
 				</select>
 			</form>
-			
 		</div>
+		<p><br/><p>
 		<div id="demo"></div>
 		<p><br/><p>
 	</body>
