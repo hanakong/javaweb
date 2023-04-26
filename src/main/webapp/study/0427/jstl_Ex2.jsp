@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,52 +7,28 @@
   <title>jstl_Ex2.jsp</title>
   <jsp:include page="/include/bs4.jsp" />
   <script>
-    'use strict';
-    
-    let pictureArray = [];
-    let pictureNameArray = [];
-    
-    function pictureCheck() {
-    	let picture = myform.picture.value;
-    	let pictureName = myform.pictureName.value.trim();
-    	
-    	if(picture == "") {
-    		alert("그림을 선택하세요!");
-    	}
-    	else if(pictureName == "") {
-    		alert("그림 이름을 입력하세요!");
-    		myform.pictureName.focus();
-    	}
-    	else {
-    		pictureArray.push(picture);
-    		pictureNameArray.push(pictureName);
-    		alert("선택하신 그림을 저장하였습니다.");
-    	}
-    }
-    
-    function pictureView() {
-    	if(pictureArray.length == 0) {
-    		alert("저장된 그림이 없습니다.");
-    		return false;
-    	}
-    	
-    	let str = '';
-    	for(let i=0; i<pictureArray.length; i++) {
-    		str += '<img src="${pageContext.request.contextPath}/images/'+pictureArray[i]+'.jpg" width="100px" />&nbsp;';
-    		str += '<font color="blue"><b>'+pictureNameArray[i]+'</b></font>';
-    		str += '<br/><br/>';
-    	}
-    	demo.innerHTML = str;
-    }
-    
-    function pictureReset() {
-    	// location.reload();
-    	
-    	pictureArray.splice(0,pictureArray.length);
-    	pictureNameArray.splice(0,pictureNameArray.length);
-    	demo.innerHTML = "";
-    	alert("저장소의 그림을 모두 제거시켰습니다.");
-    }
+  'use strict';
+  let pics = [];
+  let pic;
+  var res;
+  	function addItem() {
+  		let pic = myform.pic.value;
+  		if(pic=='') alert("그림을 선택해주세요");
+  		else {
+  			for(let i=0;i<myform.pic.length;i++) {
+  				if(myform.pic.option[i].selected) {
+  					items.push(document.getElementById("pic")[i].value);
+  				}
+  			}
+  		}
+			let res += demo.innerHTML="<img src='${pageContext.request.contextPath}/images/"+pic+".jpg'>"
+  		res += document.getElementById("mid").value;
+			demo.innerHTML += res;
+  	}
+  	function allClear() {
+  		let res='';
+  		demo.innerHTML="";
+  	}
   </script>
 </head>
 <body>
@@ -64,32 +40,19 @@
     '그림명'과, '그림파일명'을 저장시켜준다.(여러개를 저장할 수 있도록 처리)
     마지막으로 '출력'버튼을 클릭하면 아래쪽(demo)으로 저장된 모든 그림파일과 그림파일명을 출력한다.
   </pre>
-  <form name="myform" method="post" action="">
-    <div class="row">
-      <div class="col">
-		    그림선택 :
-		    <select name="picture" id="picture" class="form-control">
-			    <option value="">그림번호선택</option>
-			    <c:forEach var="i" begin="1" end="6">
-			      <option>${i}</option>
-			    </c:forEach>
-			  </select>
-		  </div>
-		  <div class="col">
-		    그림설명 :
-		    <input type="text" name="pictureName" class="form-control"/>
-		  </div>
-	  </div>
-	  <hr/>
-	  <div class="text-center">
-		  <input type="button" value="선택그림저장" onclick="pictureCheck()" class="btn btn-success" /> &nbsp;
-		  <input type="button" value="선택그림모두출력" onclick="pictureView()" class="btn btn-primary" /> &nbsp;
-		  <input type="button" value="Reset" onclick="pictureReset()" class="btn btn-primary" />
-	  </div>
-	  <hr/>
-	  <div id="demo"></div>
-  </form>
+  <form name="myform">
+		<select name="pic" size="6" multiple>
+			<c:forEach var="i" begin="1" end="6">
+				<option>${i}</option>
+			</c:forEach>
+		</select>
+		 <input type="text" id="mid" placeholder="입력 예시 1,3,5(1~6까지)" />
+		 <button type="button" onclick="addItem()">저장</button> &nbsp;
+		 <button type="button" onclick="showMe()">출력</button>
+		 <button type="button" onclick="allClear()">지우기</button>
+	</form>
 </div>
+<div id=demo></div>
 <p><br/></p>
 </body>
 </html>
