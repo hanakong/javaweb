@@ -9,6 +9,7 @@
 		<jsp:include page="/include/bs4.jsp" />
 	</head>
 	<body>
+	<jsp:include page="/include/header.jsp" />
 		<p><br/><p>
 		<div class="container">
 			<form name="myform" action="${ctp}/database/LoginOk"> <!-- database라고 만들었다고 database가 필요한 것이 아니다 -->
@@ -35,5 +36,6 @@
 			</form>
 		</div>
 		<p><br/><p>
+		<jsp:include page="/include/footer.jsp" />
 	</body>
 </html>

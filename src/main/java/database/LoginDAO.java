@@ -9,6 +9,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class LoginDAO {//3요소!
 	private Connection conn = null; //sql.connection을 import해야한다. mysql사용 X // 내가 연결하는 것이 아니라 외부와 DB를 연결하는 것이기 때문에 connection객체가 필요
@@ -99,4 +102,132 @@ public class LoginDAO {//3요소!
 		}
 	}
 	
+	//다음날 1!!! 아이디 검색처리
+	public LoginVO getMidCheck(String mid) {
+		LoginVO vo = new LoginVO();
+		try {
+			sql = "select * from login where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery(); // 읽어오는 것이므로 rs로 받아?
+			
+			if(rs.next()) { //true = 자료가 있다 => 아이디가 중복되었다.
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setName(rs.getString("name"));
+				vo.setPoint(rs.getInt("point"));
+				vo.setLastDate(rs.getString("lastDate"));
+				vo.setTodayCount(rs.getInt("todayCount"));
+				
+				vo.setTodayCount(compareDate(vo.getLastDate(), vo.getTodayCount()));
+			}
+		} catch (SQLException e) {	
+			System.out.println("SQL 명령문 오류 : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vo;
+	}
+	
+	// 회원가입처리
+	public void setJoinOk(LoginVO vo) {
+		try {
+			sql= "insert into login values(default,?,?,?,default,default,default)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getPwd());
+			pstmt.setString(3, vo.getName());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {	
+			System.out.println("SQL 명령문 오류 : " + e.getMessage());
+		} finally {
+			//열었던 객체 닫기
+			pstmtClose();
+		}
+	}
+
+	public ArrayList<LoginVO> getLoginList() {
+		ArrayList<LoginVO> vos = new ArrayList<>();
+		try {
+		sql = "select * from login order by idx desc";
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			vo = new LoginVO();
+			vo.setIdx(rs.getInt("idx"));
+			vo.setMid(rs.getString("mid"));
+			vo.setPwd(rs.getString("pwd"));
+			vo.setName(rs.getString("name"));
+			vo.setPoint(rs.getInt("point"));
+			vo.setLastDate(rs.getString("lastDate"));
+			vo.setTodayCount(rs.getInt("todayCount"));
+			
+			//날짜 비교
+			/*
+				Date today = new Date();
+	      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	      String strToday = sdf.format(today);
+	      String lastDate = vo.getLastDate();
+	      if(strToday.equals(lastDate.substring(0,10))) vo.setTodayCount(0);
+      */
+      vo.setTodayCount(compareDate(vo.getLastDate(), vo.getTodayCount())); 
+			
+			vos.add(vo);
+		}
+	} catch (SQLException e) {	
+		System.out.println("SQL 명령문 오류 : " + e.getMessage());
+	} finally {
+		rsClose();
+	}
+	return vos;
+}
+
+	//날짜비교 처리
+	private int compareDate(String lastDate, int todayCount) {
+		
+		Date today = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String strToday = sdf.format(today);
+//    String lastDate = vo.getLastDate(); // 위에서 받아서 넘겨줬기 때문에 필요 없음
+    if(!strToday.equals(lastDate.substring(0,10))) todayCount = 0;
+		
+    return todayCount;
+	}
+
+	//개인정보 수정하기
+	public int setUpdateOk(LoginVO vo) {
+		int res = 0;
+		try {
+			sql = "update login set pwd=?, name=? where mid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPwd());
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getMid());
+			pstmt.executeUpdate();
+			res =1;
+		} catch (SQLException e) {	
+			System.out.println("SQL 명령문 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	public int setDeleteOk(String mid) {
+		int res = 0;
+		try {
+			sql = "delete from login where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+			res=1;
+		} catch (SQLException e) {	
+			System.out.println("SQL 명령문 오류 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
 }
