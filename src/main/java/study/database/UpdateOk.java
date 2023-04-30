@@ -1,4 +1,4 @@
-package database;
+package study.database;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,11 +15,11 @@ import javax.servlet.http.HttpSession;
 public class UpdateOk extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
-		String mid = (String) session.getAttribute("sMid");	
-		String pwd = request.getParameter("pwd") == null ? "" : request.getParameter("pwd");
-		String name = request.getParameter("name") == null ? "" : request.getParameter("name");
+		
+		String mid = (String) session.getAttribute("sMid");
+		String pwd = request.getParameter("pwd")==null ? "" : request.getParameter("pwd");
+		String name = request.getParameter("name")==null ? "" : request.getParameter("name");
 		
 		LoginVO vo = new LoginVO();
 		
@@ -30,21 +30,21 @@ public class UpdateOk extends HttpServlet {
 		LoginDAO dao = new LoginDAO();
 		
 		int res = dao.setUpdateOk(vo);
+		
 		PrintWriter out = response.getWriter();
 		
-		if(res==1) { // 
+		if(res == 1) {
 			session.setAttribute("sName", name);
 			out.print("<script>");
-			out.print("alert('개인정보 수정 완료!');");
+			out.print("alert('개인정보가 수정되었습니다.');");
 			out.print("location.href='"+request.getContextPath()+"/study/0428_database/memberMain.jsp';");
 			out.print("</script>");
 		}
 		else {
-			dao.setJoinOk(vo);
 			out.print("<script>");
-			out.print("alert('회원정보 수정 실패!');");
-			out.print("location.href='"+request.getContextPath()+"/study/database/Update';");
-			//그 전의 update.jsp로 가는 것이 아니라 그 전인 Update.java로 간다
+			out.print("alert('회원정보 수정 실패~~~');");
+			out.print("location.href='"+request.getContextPath()+"/database/Update';");
+		//그 전의 update.jsp로 가는 것이 아니라 그 전인 Update.java로 간다
 			out.print("</script>");
 		}
 	}

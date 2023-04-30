@@ -1,4 +1,4 @@
-package database;
+package study.database;
 
 public class LoginVO {
 	private int idx;

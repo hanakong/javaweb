@@ -1,4 +1,4 @@
-package database;
+package study.database;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,16 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 @SuppressWarnings("serial")
 @WebServlet("/database/LoginSearch")
 public class LoginSearch extends HttpServlet {
-
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mid = request.getParameter("mid") == null ? "" : request.getParameter("mid");
+		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
 		
 		LoginDAO dao = new LoginDAO();
+		
 		LoginVO vo = dao.getMidCheck(mid);
 		
 		PrintWriter out = response.getWriter();
@@ -29,7 +28,6 @@ public class LoginSearch extends HttpServlet {
 			request.getRequestDispatcher(viewPage).forward(request, response);
 		}
 		else {
-			dao.setJoinOk(vo);
 			out.print("<script>");
 			out.print("alert('검색하신 아이디를 찾을 수 없습니다.');");
 			out.print("location.href='"+request.getContextPath()+"/study/0428_database/memberMain.jsp';");
