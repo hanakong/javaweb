@@ -10,6 +10,7 @@
 	</head>
 	<body>
 		<div class="container">
+		<jsp:include page="/include/header.jsp" />
 			<form name="myform" action="${ctp}/database/LoginOk"> <!-- database라고 만들었다고 database가 필요한 것이 아니다 -->
 				<table class="table table-bordered text-center">
 					<tr>
@@ -33,6 +34,7 @@
 				</table>
 			</form>
 		</div>
+		<jsp:include page="/include/footer.jsp" />
 		<p><br/><p>
 	</body>
 </html>

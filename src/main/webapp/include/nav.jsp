@@ -22,10 +22,11 @@
 				<div class="dropdown">
 			    <button type="button" class="btn text-light dropdown-toggle" data-toggle="dropdown">study1</button>
 			    <div class="dropdown-menu">
-			      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/login.jsp">로그인연습</a>
+			      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/login.jsp">로그인연습1</a>
 			      <a class="dropdown-item" href="${ctp}/mapping/Test1">URL 매핑(디렉토리 패턴)</a>
 			      <a class="dropdown-item" href="${ctp}/mapping/Test5.do">URL 매핑(확장자 패턴1)</a>
 			      <a class="dropdown-item" href="${ctp}/mapping2/Test5.mi">URL 매핑(확장자 패턴2)</a> <!-- 인터페이스를 한번 사용해보겠습니다 -->
+			      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/Login.re">로그인연습2</a>
 				  </div>  
 				</div>
 			</li>

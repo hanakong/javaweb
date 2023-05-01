@@ -45,12 +45,9 @@
 	  	  </tr>
 	  	  <tr>
 	  	    <td colspan="2" class="text-center">
-	  	      <!-- <input type="button" value="회원가입" onclick="fCheck()" class="btn btn-success mr-2"/> -->
-	  	      <input type="submit" value="회원가입" class="btn btn-success mr-2"/><!-- 버튼으로 처리했다면 유효성검사를 반드시 해야한다 -->
+	  	      <input type="submit" value="회원가입" class="btn btn-success mr-2"/>
 	  	      <input type="reset" value="다시입력" class="btn btn-danger mr-2"/>
 	  	      <input type="button" value="돌아가기" onclick="location.href='${ctp}/study/0428_database/login.jsp';" class="btn btn-warning"/>
-						<!-- 회원가입 실패시 왔다갔다한다? -->
-						<!-- DB에 접근했다 왔기 때문에 경로가 섞인다 이로 인해 같은 경로에 있는 것이 아니라 다른 경로에 있기 때문에 절대경로로 지정해줘야한다. -->
 	  	    </td>
 	  	  </tr>
 	  	</table>

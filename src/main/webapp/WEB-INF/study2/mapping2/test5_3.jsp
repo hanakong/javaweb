@@ -21,6 +21,10 @@
 				<a href="${ctp}/mapping2/Test5_5.mi" class="btn btn-success">test5_5 호출</a>
 			</p>
 		</div>
+		<div>
+			출력할 구구단 : <br/>
+			${str}
+		</div>
 		<p><br/><p>
 		<jsp:include page="/include/footer.jsp" />
 	</body>

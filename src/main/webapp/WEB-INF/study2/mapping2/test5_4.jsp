@@ -20,6 +20,9 @@
 				<a href="${ctp}/mapping2/Test5_3.mi" class="btn btn-success">test5_3 호출</a>
 				<a href="${ctp}/mapping2/Test5_5.mi" class="btn btn-success">test5_5 호출</a>
 			</p>
+			<hr/>
+				메시지 : ${msg}
+			<hr/>
 		</div>
 		<p><br/><p>
 		<jsp:include page="/include/footer.jsp" />

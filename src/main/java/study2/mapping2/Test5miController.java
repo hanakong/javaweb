@@ -35,9 +35,13 @@ public class Test5miController extends HttpServlet {
 			viewPage += "/test5_2.jsp";
 		}
 		else if(com.equals("/Test5_3")) {
+			command = new Test5DanCommand();
+			command.execute(request, response);
 			viewPage += "/test5_3.jsp";
 		}
 		else if(com.equals("/Test5_4")) {
+			command = new Test5MsgCommand();
+			command.execute(request, response);
 			viewPage += "/test5_4.jsp";
 		}
 		else if(com.equals("/Test5_5")) {

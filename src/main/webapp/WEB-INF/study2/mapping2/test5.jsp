@@ -12,6 +12,14 @@
 			width : 500px;
 			}
 		</style>
+		<script>
+			'use strict';
+			
+			function gugudan() {
+				let dan = document.getElementById("dan").value;
+				location.href = "${ctp}/Test5_3.mi?dan="+dan;
+			}
+		</script>
 	</head>
 	<body>
 	<jsp:include page="/include/header.jsp" />
@@ -50,6 +58,13 @@
 					</div>
 				</form>
 			</div>
+				<hr/>
+			<div>
+				출력할 단을 입력하세요 
+				<input type="number" name="dan" id="dan" value="2" class="form-control" />
+				<input type="button" value="구구단 출력(5_3에서 출력)" onclick="gugudan()" class="btn btn-success" />
+			</div>
+				<hr/>
 		</div>
 		<p><br/><p>
 		<jsp:include page="/include/footer.jsp" />
