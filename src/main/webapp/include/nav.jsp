@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="ctp" value="${pageContext.request.contextPath}" />
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 <!-- 		  <a class="navbar-brand" href="http://localhost:9090/javaweb/">Home</a> -->
   <a class="navbar-brand" href="http://192.168.50.89:9090/javaweb/">Home</a>
@@ -21,8 +23,9 @@
 			    <button type="button" class="btn text-light dropdown-toggle" data-toggle="dropdown">study1</button>
 			    <div class="dropdown-menu">
 			      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/login.jsp">로그인연습</a>
-			      <a class="dropdown-item" href="#">URL 매핑</a>
-			      <a class="dropdown-item" href="#">Link 3</a>
+			      <a class="dropdown-item" href="${ctp}/mapping/Test1">URL 매핑(디렉토리 패턴)</a>
+			      <a class="dropdown-item" href="${ctp}/mapping/Test5.do">URL 매핑(확장자 패턴1)</a>
+			      <a class="dropdown-item" href="${ctp}/mapping2/Test5.mi">URL 매핑(확장자 패턴2)</a> <!-- 인터페이스를 한번 사용해보겠습니다 -->
 				  </div>  
 				</div>
 			</li>
