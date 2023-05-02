@@ -39,6 +39,41 @@ public class LoginController extends HttpServlet {
 		else if(com.equals("/MemberMain")) {
 			viewPage += "/memberMain.jsp";
 		}
+		else if(com.equals("/Logout")) {
+			command = new LogoutCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/List")) {
+			command = new ListCommand();
+			command.execute(request, response);
+			viewPage += "/memberList.jsp";
+		}
+		else if(com.equals("/LoginSearch")) {
+			command = new LoginSearchCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/MemberSearch")) {
+			command = new MemberSearchCommand();
+			command.execute(request, response);
+			viewPage += "/memberSearch.jsp";
+		}
+		else if(com.equals("/DeleteOk")) {
+			command = new DeleteOkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/Update")) {
+			command = new UpdateCommand();
+			command.execute(request, response);
+			viewPage += "/update.jsp";
+		}
+		else if(com.equals("/UpdateOk")) {
+			command = new UpdateOkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
