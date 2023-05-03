@@ -13,7 +13,7 @@
         <a class="nav-link" href="${ctp}/GuestList.gu">Guest</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Board</a>
+        <a class="nav-link" href="${ctp}/BoardList.bo">Board</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">PDS</a>
@@ -26,7 +26,8 @@
 			      <a class="dropdown-item" href="${ctp}/mapping/Test1">URL 매핑(디렉토리 패턴)</a>
 			      <a class="dropdown-item" href="${ctp}/mapping/Test5.do">URL 매핑(확장자 패턴1)</a>
 			      <a class="dropdown-item" href="${ctp}/mapping2/Test5.mi">URL 매핑(확장자 패턴2)</a> <!-- 인터페이스를 한번 사용해보겠습니다 -->
-			      <a class="dropdown-item" href="${pageContext.request.contextPath}/study/0428_database/Login.re">로그인연습2</a>
+			      <a class="dropdown-item" href="${ctp}/study/0428_database/Login.re">로그인연습2</a>
+			      <a class="dropdown-item" href="${ctp}/Password.st">암호화연습</a>
 				  </div>  
 				</div>
 			</li>

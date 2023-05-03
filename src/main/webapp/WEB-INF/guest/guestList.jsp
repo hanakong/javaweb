@@ -115,7 +115,7 @@
 				<ul class="pagination justify-content-center" style="margin:20px 0">
 					<c:if test="${pag > 1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/GuestList.gu?pageSize=${pageSize}&pag=1">첫 페이지로</a></li></c:if>
 					<c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/GuestList.gu?pageSize=${pageSize}&pag=${(curBlock-1) * blockSize + 1}">이전 블록</a></li></c:if>
-					<c:forEach var="i" begin="${curBlock*blockSize+1}" end="${curBlock*blockSize + blockSize}" varStatus="st">
+					<c:forEach var="i" begin="${curBlock * blockSize+1}" end="${curBlock * blockSize + blockSize}" varStatus="st">
 						<c:if test="${i <= totPage && pag == i}"><li class="page-item active"><a class="page-link text-white bg-secondary border-secondary" href="${ctp}/GuestList.gu?pageSize=${pageSize}&pag=${i}">${i}</a></li></c:if>
 						<c:if test="${i <= totPage && pag != i}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/GuestList.gu?pageSize=${pageSize}&pag=${i}">${i}</a></li></c:if>
 					</c:forEach>
