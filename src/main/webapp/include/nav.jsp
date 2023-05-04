@@ -50,7 +50,13 @@
 			      <a class="dropdown-item" href="#">회원탈퇴</a>
 				  </div>  
 				</div>
-			</li>				   
+			</li>
+			<li class="nav-item">
+        <a class="nav-link" href="${ctp}/MemberLogin.mem">Login</a>
+      </li>				   
+			<li class="nav-item">
+        <a class="nav-link" href="${ctp}/MemberJoin.mem">Join</a>
+      </li>				   
     </ul>
   </div>
 </nav>
