@@ -40,6 +40,7 @@ public class BoardDAO {
 				vo.setEmail(rs.getString("email"));
 				vo.setHomePage(rs.getString("homePage"));
 				vo.setReadNum(rs.getInt("readNum"));
+				vo.setContent(rs.getString("content"));
 				vo.setHostIP(rs.getString("hostIP"));
 				vo.setOpenSw(rs.getString("openSw"));
 				vo.setwDate(rs.getString("wDate"));
@@ -94,5 +95,61 @@ public class BoardDAO {
 			getConn.rsClose();
 		}
 		return totRecCnt;
+	}
+
+	public BoardVO getBoardContent(int idx) {
+		BoardVO vo = new BoardVO();
+		try {
+			sql = "select * from board where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			rs.next();
+			
+			vo.setIdx(rs.getInt("idx"));
+			vo.setMid(rs.getString("mid"));
+			vo.setNickName(rs.getString("nickName"));
+			vo.setTitle(rs.getString("title"));
+			vo.setEmail(rs.getString("email"));
+			vo.setHomePage(rs.getString("homePage"));
+			vo.setReadNum(rs.getInt("readNum"));
+			vo.setHostIP(rs.getString("hostIP"));
+			vo.setOpenSw(rs.getString("openSw"));
+			vo.setwDate(rs.getString("wDate"));
+			vo.setGood(rs.getInt("good"));
+			vo.setContent(rs.getString("content"));
+			
+		} catch (SQLException e) {
+			System.out.println("SQL문 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vo;
+	}
+
+	public void setReadNumUpdate(int idx) {
+		try {
+			sql = "update board set readNum = readNum + 1 where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL문 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+
+	public void setGoodUpdate(int idx) {
+		try {
+			sql = "update board set good = good + 1 where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL문 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
 	}
 }

@@ -69,7 +69,7 @@
 					<tr>
 						<td>${vo.idx}</td>
 						<td>
-							${vo.title}
+							<a href="${ctp}/BoardContent.bo?idx=${vo.idx}">${vo.title}</a>
 							<c:if test="${vo.hour_diff <= 24}"><img src="${ctp}/images/new.png"/></c:if>
 						</td>
 						<td>${vo.nickName}</td>

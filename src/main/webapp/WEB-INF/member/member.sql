@@ -3,7 +3,7 @@ show tables;
 create table member (
 	idx int not null auto_increment, 	    		/* 회원 고유번호 */
 	mid varchar(20) not null,   			  		  /* 회원 아이디 중복X */
-	pwd varchar(20) not null,   		 		 			/* 회원 비밀번호 (sha-256) */
+	pwd varchar(100) not null,   		 		 			/* 회원 비밀번호 (sha-256) */
 	nickName varchar(20) not null,   		 		  /* 회원 별명(중복 불허/수정가능) */
 	name varchar(20) not null,								/* 회원 성명 */
 	gender varchar(5) default '남자',					/* 회원 성별 */
@@ -23,7 +23,8 @@ create table member (
 	visitCnt int default 0,										/* 총 방문 횟수 */
 	startDate datetime default now(),					/* 최초 가입일 */
 	lastDate datetime default now(),					/* 마지막 접속일 */
-	dodayCnt int default 0,										/* 오늘 방문한 횟수 */
+	todayCnt int default 0,										/* 오늘 방문한 횟수 */
+	salt char(8) not null,										/* 비밀번호 보안을 위한 해시키 */
 	primary key (idx, mid)										/* 고유번호 및 회원아이디 중복 불가 */
 );
 

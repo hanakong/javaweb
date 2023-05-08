@@ -33,6 +33,16 @@ public class BoardController extends HttpServlet {
 		else if(com.equals("/BoardInput")) {
 			viewPage += "/boardInput.jsp";
 		}
+		else if(com.equals("/BoardContent")) {
+			command = new BoardContentCommand(); 
+			command.execute(request, response);
+			viewPage += "/boardContent.jsp";
+		}
+		else if(com.equals("/BoardGoodCheck")) {
+			command = new BoardGoodCheckCommand(); 
+			command.execute(request, response);
+			viewPage += "/boardContent.jsp";
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

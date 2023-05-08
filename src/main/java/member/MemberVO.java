@@ -23,7 +23,8 @@ public class MemberVO {
 	private int visitCnt;
 	private String startDate;
 	private String lastDate;
-	private int dodayCnt;
+	private int todayCnt;
+	private String salt;
 	
 	public int getIdx() {
 		return idx;
@@ -157,11 +158,17 @@ public class MemberVO {
 	public void setLastDate(String lastDate) {
 		this.lastDate = lastDate;
 	}
-	public int getDodayCnt() {
-		return dodayCnt;
+	public int getTodayCnt() {
+		return todayCnt;
 	}
-	public void setDodayCnt(int dodayCnt) {
-		this.dodayCnt = dodayCnt;
+	public void setTodayCnt(int todayCnt) {
+		this.todayCnt = todayCnt;
+	}
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 	@Override
 	public String toString() {
@@ -169,6 +176,7 @@ public class MemberVO {
 				+ ", gender=" + gender + ", birthday=" + birthday + ", tel=" + tel + ", address=" + address + ", email=" + email
 				+ ", homePage=" + homePage + ", job=" + job + ", hobby=" + hobby + ", photo=" + photo + ", content=" + content
 				+ ", userInfor=" + userInfor + ", userDel=" + userDel + ", point=" + point + ", level=" + level + ", visitCnt="
-				+ visitCnt + ", startDate=" + startDate + ", lastDate=" + lastDate + ", dodayCnt=" + dodayCnt + "]";
+				+ visitCnt + ", startDate=" + startDate + ", lastDate=" + lastDate + ", todayCnt=" + todayCnt + ", salt=" + salt
+				+ "]";
 	}
 }
