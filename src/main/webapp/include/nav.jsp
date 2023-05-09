@@ -34,6 +34,8 @@
 				      <a class="dropdown-item" href="${ctp}/study/0428_database/Login.re">로그인연습2</a>
 				      <a class="dropdown-item" href="${ctp}/Password.st">암호화연습</a>
 				      <a class="dropdown-item" href="${ctp}/UuidForm.st">UUID연습</a>
+				      <a class="dropdown-item" href="${ctp}/AjaxTest1.st">Ajax연습1</a>
+				      <a class="dropdown-item" href="${ctp}/UserList.st">Ajax연습2</a>
 					  </div>  
 					</div>
 				</li>
