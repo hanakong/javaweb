@@ -30,7 +30,7 @@ public class AjaxTest1_1 extends HttpServlet {
 		}
 		else {
 			out.println("<script>");
-			out.println("alert('검색된 회원은 "+vo.getName()+" 입니다.');");
+			out.println("alert('검색된 회원은 "+vo.getName()+" 님 입니다.');");
 		}
 		out.println("location.href='"+request.getContextPath()+"/AjaxTest1.st';");
 		out.println("</script>");

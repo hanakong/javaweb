@@ -98,7 +98,7 @@ public class UserDAO {
 		}
 		return res;
 	}
-
+	//개별 조회 
 	public UserVO getIdxSearch(int idx) {
 		vo = new UserVO();
 		try {
@@ -119,6 +119,27 @@ public class UserDAO {
 			getConn.rsClose();
 		}
 		return vo;
+	}
+
+	public String setUpdate(UserVO vo, String sMid) {
+		String res = "0";
+		try {
+			sql = "update user set mid=?, name=?, age=?, address=? where mid=?";
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setString(1, vo.getMid());
+      pstmt.setString(2, vo.getName());
+      pstmt.setInt(3, vo.getAge());
+      pstmt.setString(4, vo.getAddress());
+      pstmt.setString(5, sMid);
+      pstmt.executeUpdate();
+      res = "1";
+		} catch (SQLException e) {
+			System.out.println("sql오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		
+		return res;
 	}
 	
 }

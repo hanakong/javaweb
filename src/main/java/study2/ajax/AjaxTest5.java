@@ -1,7 +1,6 @@
 package study2.ajax;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -19,6 +18,7 @@ import member.MemberVO;
 @SuppressWarnings("serial")
 @WebServlet("/AjaxTest5")
 public class AjaxTest5 extends HttpServlet {
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mid = request.getParameter("mid")==null ? "" : request.getParameter("mid");
@@ -35,9 +35,9 @@ public class AjaxTest5 extends HttpServlet {
 		map.put("point", vo.getPoint()+"");
 		
 		JSONObject memberObj = new JSONObject(map);
-		String str = memberObj.toJSONString();
 		
-		/* vos 객체를 만들어서 JSON 객체로 저장하여 넘겨주고자 할 경우는?
+		/* 
+		 	vos 객체를 만들어서 JSON 객체로 저장하여 넘겨주고자 할 경우는?
 		  JSONArray jsonVOS = new JSONArray();
 		  jsonVOS.add();
 		*/

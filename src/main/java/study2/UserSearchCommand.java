@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import study2.ajax2.UserDAO;
 import study2.ajax2.UserVO;
@@ -17,6 +18,9 @@ public class UserSearchCommand implements StudyInterface {
 		
 		UserDAO dao = new UserDAO();
 		UserVO vo = dao.getIdxSearch(idx);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("sMid", vo.getMid());
 		
 		String str = "";
 		if(vo.getMid() == null) {

@@ -28,7 +28,7 @@
     	location.href = "${ctp}/AjaxTest1_1?mid="+mid;
     }
     
-    // aJax를 이용한 아이디 검색
+ // aJax를 이용한 아이디 검색
     function idCheck1() {
     	let mid = $("#mid").val();
     	
@@ -40,7 +40,7 @@
     	
     	let query = {
     			mid: mid,
-    	}
+    	} //?
     	
     	$.ajax({
     		url  : "${ctp}/AjaxTest1_2",
@@ -57,15 +57,15 @@
     		}
     	});
     }
-    
+ 
     function idCheck2() {
 			let mid = $("#mid").val();
-    	
-    	if(mid.trim() == "") {
-    		alert("아이디를 입력하세요~~~~");
-    		$("#mid").focus();
-    		return false;
-    	}
+		
+			if(mid.trim() == "") {
+				alert("아이디를 입력하세요~~~~");
+				$("#mid").focus();
+				return false;
+			}
 			$.ajax({
 				url : "${ctp}/AjaxTest2",
 				type : "post",
@@ -83,34 +83,35 @@
 					alert("전송오류!");
 				}
 			});
-    	}
+		}
+    
     function idCheck3() {
 			let mid = $("#mid").val();
-    	
-    	if(mid.trim() == "") {
-    		alert("아이디를 입력하세요~~~~");
-    		$("#mid").focus();
-    		return false;
-    	}
-    	$.ajax({
-    		type : "post",
-    		url : "${ctp}/AjaxTest3",
-    		data : {mid: mid}, //넘기는 것
-    		success : function(res) {
-    			res = res.substring(res.indexOf("[")+1,res.lastIndexOf("]"));
-    			$("#demo").html(res);
-    				
-    			$("#tMid").html(res.substring(res.indexOf("mid=")+4, res.indexOf(",",res.indexOf("mid="))));
-					$("#name").html(res.substring(res.indexOf("name=")+5, res.indexOf(",",res.indexOf("name="))));
-					$("#nickName").html(res.substring(res.indexOf("nickName=")+9, res.indexOf(",",res.indexOf("nickName="))));
-					$("#gender").html(res.substring(res.indexOf("gender=")+7, res.indexOf(",",res.indexOf("gender="))));
-					$("#point").html(res.substring(res.indexOf("point=")+6, res.indexOf(",",res.indexOf("point="))));
-    		},
-    		error : function() {
-				alert("전송오류!");
+	
+			if(mid.trim() == "") {
+				alert("아이디를 입력하세요");
+				$("#mid").focus();
+				return false;
 			}
-    	});
-    }
+			$.ajax({
+				type : "post",
+				url : "${ctp}/AjaxTest3",
+				data : {mid: mid}, //넘기는 것
+				success : function(res) {
+				res = res.substring(res.indexOf("[")+1,res.lastIndexOf("]"));
+				$("#demo").html(res);
+				$("#tMid").html(res.substring(res.indexOf("mid=")+4, res.indexOf(",",res.indexOf("mid="))));
+				$("#name").html(res.substring(res.indexOf("name=")+5, res.indexOf(",",res.indexOf("name="))));
+				$("#nickName").html(res.substring(res.indexOf("nickName=")+9, res.indexOf(",",res.indexOf("nickName="))));
+				$("#gender").html(res.substring(res.indexOf("gender=")+7, res.indexOf(",",res.indexOf("gender="))));
+				$("#point").html(res.substring(res.indexOf("point=")+6, res.indexOf(",",res.indexOf("point="))));
+				},
+				error : function() {
+					alert("전송오류!");
+				}
+			});
+		}
+    
     function idCheck4() {
     	let mid = $("#mid").val();
     	
@@ -141,7 +142,8 @@
 				}
     	});
     }
-    // vos형태의 값을 처리
+    
+ // vos형태의 값을 처리
     function idCheck5() {
 			let mid = $("#mid").val();
     	
@@ -156,29 +158,29 @@
     		url : "${ctp}/AjaxTest5",
     		data : {mid: mid},
     		success : function(res) {
-    			$("#demo").html(res);
-    			let js = JSON.parse(res);
-    			console.log("js",js);
-    			/*
-	    			$("#tMid").html(js[0].mid);
-	    			$("#name").html(js[0].name);
-	    			$("#nickName").html(js[0].nickName);
-	    			$("#gender").html(js[0].gender);
-	    			$("#point").html(js[0].point);
-    			*/
-    			let tMid = "", tName="", tNickName="", tGender="", tPoint="";
-    			for(let j of js) {
-    				tMid += j.mid + " / ";
-    				tName += j.name + " / ";
-    				tNickName += j.nickName + " / ";
-    				tGender += j.gender + " / ";
-    				tPoint += j.point + " / ";
-    			}
-    			$("#tMid").html(tMid);
-    			$("#name").html(tName);
-    			$("#nickName").html(tNickName);
-    			$("#gender").html(tGender);
-    			$("#point").html(tPoint);
+  			$("#demo").html(res);
+  			let js = JSON.parse(res);
+  			console.log("js",js);
+  			/*
+    			$("#tMid").html(js[0].mid);
+    			$("#name").html(js[0].name);
+    			$("#nickName").html(js[0].nickName);
+    			$("#gender").html(js[0].gender);
+    			$("#point").html(js[0].point);
+  			*/
+  			let tMid = "", tName="", tNickName="", tGender="", tPoint="";
+  			for(let j of js) {
+  				tMid += j.mid + " / ";
+  				tName += j.name + " / ";
+  				tNickName += j.nickName + " / ";
+  				tGender += j.gender + " / ";
+  				tPoint += j.point + " / ";
+  			}
+  			$("#tMid").html(tMid);
+  			$("#name").html(tName);
+  			$("#nickName").html(tNickName);
+  			$("#gender").html(tGender);
+  			$("#point").html(tPoint);
     		},
     		error : function() {
     			alert("전송오류");

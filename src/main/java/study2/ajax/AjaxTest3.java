@@ -24,5 +24,7 @@ public class AjaxTest3 extends HttpServlet {
 		MemberVO vo = dao.getMemberMidCheck(mid);
 		
 		response.getWriter().write(vo.toString());//헤드에 내용을 담아 보낸다. 이때 보내는 내용은 무조건 문자형식이어야한다.
+		
+		System.out.println(vo);
 	}
 }

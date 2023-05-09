@@ -1,6 +1,7 @@
 package study2.ajax2;
 
 public class UserVO {
+	
 	private int idx;
 	private String mid;
 	private String name;

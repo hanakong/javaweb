@@ -38,9 +38,9 @@ public class Test5Controller extends HttpServlet {
 		}
 		else if(com.equals("/Test5_5")) {
 			//service객체에서 request객체를 현재 생성할 수 없기 때문에 여기서 한다.
-			int su1 = request.getParameter("su1")==null ? 0 : Integer.parseInt(request.getParameter("su1"));
-			int su2 = request.getParameter("su2")==null ? 0 : Integer.parseInt(request.getParameter("su2"));
-			String op = request.getParameter("op")==null ? "" : request.getParameter("op");
+			int su1 = request.getParameter("su1")==null ? 1 : Integer.parseInt(request.getParameter("su1"));
+			int su2 = request.getParameter("su2")==null ? 1 : Integer.parseInt(request.getParameter("su2"));
+			String op = request.getParameter("op")==null ? "+" : request.getParameter("op");
 			
 			Test5Command t5 = new Test5Command();
 			int res = t5.test5Calc(su1, su2, op);

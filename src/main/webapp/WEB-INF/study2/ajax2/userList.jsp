@@ -16,6 +16,7 @@
 		</style>
 		<script>
 			'use strict';
+			
 			function userInput() {
 				let mid = $("#mid").val().trim();
 				let name = $("#name").val().trim();
@@ -65,10 +66,11 @@
 						}
 					},
 					error : function() {
-						alert("전송오류!");
+						alert("전송 실패!");
 					}
 				});
 			}
+			
 			// user 삭제처리
 			function userDel(idx) {
 				let ans = confirm("선택된 회원을 삭제하시겠습니까?");
@@ -80,7 +82,7 @@
 					data : {idx : idx},
 					success : function(res) {
 						if(res == "1") {
-							alert("수정완료!");
+							alert("삭제완료!");
 						}
 					},
 					error : function() {
@@ -88,6 +90,7 @@
 					}
 				});
 			}
+			
 			//개별조회
 			function userSearch(idx) {
 				$.ajax({
@@ -108,7 +111,56 @@
 			}
 			//수정하기
 			function userUpdate() {
+				let mid = $("#mid").val().trim();
+				let name = $("#name").val().trim();
+				let age = $("#age").val().trim();
+				let address = $("#address").val().trim();
 				
+				if(mid == "") {
+					alert("아이디를 입력하세요");
+					$("#mid").focus();
+					return false;
+				}
+				else if(name == "") {
+					alert("성명을 입력하세요");
+					$("#name").focus();
+					return false;
+				}
+				else if(age == "") {
+					alert("나이를 입력하세요");
+					$("#age").focus();
+					return false;
+				}
+				else if(address == "") {
+					alert("주소를 입력하세요");
+					$("#address").focus();
+					return false;
+				}
+				
+				let query = {
+						mid : mid,
+						name : name,
+						age : age,
+						address : address
+				}
+				$.ajax({
+					type : "post",
+					url : "${ctp}/UserUpdate.st",
+					data : query,
+					success : function(res) {
+						if(res == "1") {
+							alert("게시글이 수정되었습니다.");
+							location.reload();
+						}
+						else {
+							alert(res);
+							$("#mid").focus();
+						}
+					},
+					error : function() {
+						alert("전송 실패!");
+					}
+				});
 			}
 		</script>
 	</head>
