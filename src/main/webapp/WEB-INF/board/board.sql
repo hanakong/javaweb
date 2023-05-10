@@ -27,6 +27,23 @@ insert into board values (default,'admin','관리자','게시판 서비스 시�
 
 select * from board;
 
+/* 게시판에 댓글 달기 */ /* DB간의 관계 설정 - 관계설정을 통해 인덱싱이 가능.. */
+create table boardReply (
+	idx int not null auto_increment,              /* 댓글의 고유번호 */
+	boardIdx int not null,								        /* 원본글의 고유번호(외래키로 지정) 한개만 가능X 여러개 가능O */
+	mid varchar(20) not null,                     /* 댓글 올린이의 아이디 */
+	nickName varchar(20) not null,	              /* 댓글 올린이의 닉네임 */
+	wDate datetime default now(),	       	        /* 댓글 올린 날짜 */
+	hostIP varchar(50) not null,			 	 	        /* 댓글 올린 PC의 고유 IP */
+	content text not null,                        /* 댓글 내용 */
+	primary key(idx),                             /* 기본키 : 고유번호 */
+	foreign key(boardIdx) references board(idx)   /* 외래키 설정(설정 조건 : unique key, primary key) */
+	on update cascade                             /* 원본 키를 수정하면 같이 수정하겠다. */
+	on delete restrict                            /* 원본테이블을 삭제하지 못하게 하겠다? */
+);
+
+desc boardReply; /*MUL : multiple key -- 관계설정이 된 키 PRI->UNI->MUL 순의 우선순위로 출력*/
+
 /* 날짜함수 처리 연습 */
 select now(); /*오늘 날짜 보여주세요*/
 select year(now());
@@ -74,3 +91,8 @@ select *, datediff(wDate, now()) as day_diff, timestampdiff(hour, wDate, now()) 
 /* 날짜 양식 (date_format()) : 년도(%Y)//4자리 2자리는(%y)//, 월(%m), 일(%d) */
 select date_format(wDate, '%Y-%m-%d %H:%i') as format from board order by wDate desc;
 
+/* 이전글 / 다음글 꺼내오기 */ /*먼저 sql문 연습을 해보고 되면 가져가서 처리를 해야해요~*/
+select * from board;
+select * from board where idx=6; /* 현재글이라 가정 */
+select idx,title from board where idx<6 order by idx desc limit 1; /* 이전글 */
+select idx,title from board where idx>6 order by idx asc limit 1;  /* 다음글 */

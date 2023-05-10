@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import study2.StudyInterface;
+import study2.ajax2.StudyInterface;
 
 public class UuidCommand implements StudyInterface {
 

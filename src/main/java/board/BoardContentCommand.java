@@ -13,6 +13,11 @@ public class BoardContentCommand implements BoardInterface {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idx = request.getParameter("idx") == null ? 0 : Integer.parseInt(request.getParameter("idx"));
+		int pag = request.getParameter("pag") == null ? 0 : Integer.parseInt(request.getParameter("pag"));
+		int pageSize = request.getParameter("pageSize") == null ? 0 : Integer.parseInt(request.getParameter("pageSize"));
+		String flag = request.getParameter("flag") == null ? "" : request.getParameter("flag");
+		String search = request.getParameter("search") == null ? "" : request.getParameter("search");
+		String searchString = request.getParameter("searchString") == null ? "" : request.getParameter("searchString");
 		
 		BoardDAO dao = new BoardDAO();
 		
@@ -36,6 +41,23 @@ public class BoardContentCommand implements BoardInterface {
 		BoardVO vo = dao.getBoardContent(idx);
 		
 		request.setAttribute("vo", vo);
+		request.setAttribute("pag", pag);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("flag", flag);
+		request.setAttribute("search", search);
+		request.setAttribute("searchString", searchString);
+		
+		// 이전글과 다음글 처리
+		BoardVO preVO = dao.getPreNextSearch(idx, "preVO");
+		BoardVO nextVO = dao.getPreNextSearch(idx, "nextVO");
+		
+		request.setAttribute("preVO", preVO);
+		request.setAttribute("nextVO", nextVO);
+		
+		//현재 부모글에 딸려있는 댓글 가져오기
+		ArrayList<BoardReplyVO> replyVos = dao.getBoardReply(idx);
+		request.setAttribute("replyVos", replyVos);
 	}
 
+ 	
 }

@@ -1,12 +1,10 @@
-package study2;
+package study2.ajax2;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import study2.ajax2.UserDAO;
 
 public class UserDeleteCommand implements StudyInterface {
 
