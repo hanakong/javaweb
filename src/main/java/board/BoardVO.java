@@ -13,6 +13,10 @@ public class BoardVO {
 	private String hostIP;
 	private String openSw;
 	private String wDate;
+	
+	private int replyCount; // 댓글 개수
+	
+	
 	private int good;
 //위의 필드들은 sql에 등록되있는 것 hour_diff는 아님... 따라서 구분을 위해 띄어쓰기~
 	private int hour_diff; // 날짜 차이계산(24시간 차이 계산)
@@ -132,12 +136,18 @@ public class BoardVO {
 	public void setNextTitle(String nextTitle) {
 		this.nextTitle = nextTitle;
 	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", email=" + email
 				+ ", homePage=" + homePage + ", content=" + content + ", readNum=" + readNum + ", hostIP=" + hostIP
-				+ ", openSw=" + openSw + ", wDate=" + wDate + ", good=" + good + ", hour_diff=" + hour_diff + ", day_diff="
-				+ day_diff + ", preIdx=" + preIdx + ", nextIdx=" + nextIdx + ", preTitle=" + preTitle + ", nextTitle="
-				+ nextTitle + "]";
+				+ ", openSw=" + openSw + ", wDate=" + wDate + ", replyCount=" + replyCount + ", good=" + good + ", hour_diff="
+				+ hour_diff + ", day_diff=" + day_diff + ", preIdx=" + preIdx + ", nextIdx=" + nextIdx + ", preTitle="
+				+ preTitle + ", nextTitle=" + nextTitle + "]";
 	}
 }

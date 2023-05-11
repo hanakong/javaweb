@@ -64,7 +64,29 @@
 					}
 				});
 			}
-			
+			// 댓글 삭제
+			function replyDelete(idx) {
+    	let ans = confirm("선택한 댓글을 삭제하시겠습니까?");
+      if(!ans) return false;
+      
+      $.ajax({
+        type : 'post',
+        url : '${ctp}/BoardReplyDelete.bo',
+        data : {replyIdx : idx},
+        success : function(res) {
+          if(res == '1') {
+           alert('댓글이 삭제되었습니다.');
+           location.reload();
+          }
+          else {
+           alert('댓글이 삭제되지 않았습니다.');
+          }
+        },
+        error : function() {
+          alert('전송실패~~');
+        }
+      });
+    }
 		</script>
 	</head>
 	<body>

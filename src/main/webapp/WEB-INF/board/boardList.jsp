@@ -88,6 +88,7 @@
 						<c:if test="${vo.openSw != 'OK' && sLevel != 0 && sMid != vo.mid}">
 							${vo.title}<img src="${ctp}/images/lock.jpg"/>
 						</c:if>
+						<c:if test="${vo.replyCount != 0}">(${vo.replyCount})</c:if>
 					</td>
 					<td>${vo.nickName}</td>
 					<td>

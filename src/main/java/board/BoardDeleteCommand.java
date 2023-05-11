@@ -18,6 +18,7 @@ public class BoardDeleteCommand implements BoardInterface {
 		int sLevel = (int)session.getAttribute("sLevel");
 		String nickName = request.getParameter("mid") == null ? "" : request.getParameter("mid");
 		System.out.println("sNickName : " + sNickName + ", nickName :" + nickName);
+		
 		if(sLevel != 0) {
 			if(sNickName.equals(nickName)) {
 				request.setAttribute("msg", "잘못된 접근입니다.");
@@ -31,6 +32,15 @@ public class BoardDeleteCommand implements BoardInterface {
 		int pageSize = request.getParameter("pageSize") == null ? 0 : Integer.parseInt(request.getParameter("pageSize"));
 		
 		BoardDAO dao = new BoardDAO();
+
+		//DB 관계 설정할 때 on delete restrict 설정했기 때문에 댓글이 1개 이상 있으면 원본글 삭제가 되지 않는다. 이를 해결하기 위해 댓글이 있는지 확인한다.
+//		ArrayList<BoardReplyVO> vos = dao.getBoardReply(idx);
+		
+//		if(vos.size() != 0) { // 댓글이 있다
+//			request.setAttribute("msg", "현 게시글에 댓글이 존재하므로 삭제할 수 없습니다. \\n삭제를 원하신다면 댓글을 먼저 삭제해주세요.");
+//			request.setAttribute("url", request.getContextPath()+"/BoardContent.bo?idx="+idx+"&pag="+pag+"&pageSize="+pageSize);
+//			return;
+//		}
 		
 		int res = dao.setBoardDelete(idx);
 		

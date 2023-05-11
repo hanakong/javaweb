@@ -24,6 +24,7 @@ public class BoardController extends HttpServlet {
 		// 세션이 존재하지 않는다 = 작업을 중단시킨다.
 		HttpSession session = request.getSession();
 		int level = session.getAttribute("sLevel") == null ? 99 : (int)session.getAttribute("sLevel");
+		
 		if(level > 4) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/");
 			dispatcher.forward(request, response);
@@ -74,6 +75,11 @@ public class BoardController extends HttpServlet {
 		}
 		else if(com.equals("/BoardReplyInput")) {
 			command = new BoardReplyInputCommand(); 
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/BoardReplyDelete")) {
+			command = new BoardReplyDeleteCommand(); 
 			command.execute(request, response);
 			return;
 		}

@@ -23,9 +23,13 @@ public class BoardDAO {
 	public ArrayList<BoardVO> getBoardList(int startIndexNo, int pageSize) {
 		ArrayList<BoardVO> vos = new ArrayList<>();
 		try {
-//			sql = "select * from board order by idx desc limit ?,?";
-			sql = "select *,datediff(wDate, now()) as day_diff, timestampdiff(hour, wDate, now()) as hour_diff from"
-					+ " board order by idx desc limit ?,?";
+//1.			sql = "select * from board order by idx desc limit ?,?";
+//2.			sql = "select *,datediff(wDate, now()) as day_diff, timestampdiff(hour, wDate, now()) as hour_diff from"
+//					+ " board order by idx desc limit ?,?";
+			sql = "select *, datediff(wDate, now()) as day_diff, timestampdiff(hour, wDate, now()) as hour_diff, "
+					+ "(select count(*) from boardReply where boardIdx=b.idx) as replyCount "
+					+ "from board b order by idx desc limit ?,?";
+					
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
 			pstmt.setInt(2, pageSize);
@@ -48,6 +52,7 @@ public class BoardDAO {
 				//구분!
 				vo.setHour_diff(rs.getInt("hour_diff"));
 				vo.setDay_diff(rs.getInt("day_diff"));
+				vo.setReplyCount(rs.getInt("replyCount"));
 				
 				vos.add(vo);
 			}
@@ -217,9 +222,20 @@ public class BoardDAO {
 		}
 		return vos;
 	}
-	//게시글 삭제 처리
-	public int setBoardDelete(int idx) {
+	//게시글 삭제 처리 
+	public int setBoardDelete(int idx) { 
+		//댓글 idx 와 원본글 idx가 같다. 댓글idx를 통해 댓글을 모두 삭제한다음 원본글 삭제를 실행하면 가능하지 않을까?
 		int res = 0;
+		try {
+			sql = "delete from boardreply where boardIdx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL문 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
 		try {
 			sql="delete from board where idx=?";
 			pstmt = conn.prepareStatement(sql);
@@ -303,5 +319,21 @@ public class BoardDAO {
 			getConn.rsClose();
 		}
 		return replyVos;
+	}
+
+	public String setReplyDeleteOk(int replyIdx) {
+		String res = "0";
+		try {
+      sql = "delete from boardReply where idx=?";
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setInt(1, replyIdx);
+      pstmt.executeUpdate();
+      res = "1"; 
+    } catch (SQLException e) {
+       System.out.println("SQL 오류 : " + e.getMessage());
+    } finally {
+       getConn.pstmtClose();
+    }
+		return res;
 	}
 }
