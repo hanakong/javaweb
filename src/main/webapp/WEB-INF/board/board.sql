@@ -141,3 +141,5 @@ select *,
 	(select count(*) from boardReply where boardIdx=b.idx) as replyCnt
 	from board b order by idx desc limit 5;
 	
+select timestampdiff(day, '2023-05-01', now());	
+	

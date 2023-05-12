@@ -209,4 +209,139 @@ public class MemberDAO {
 		}
 		return vos;
 	}
+
+	public int setMemberPwdUpdateOk(String mid, String newPwd) {
+		int res = 0;
+		try {
+			sql="Update member set pwd = ? where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPwd);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+			res = 1;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	public int setMemberUpdateOk(MemberVO vo) {
+		int res = 0;
+		try {
+			sql = "update member set nickName=?, name=?, gender=?, birthday=?, tel=?, address=?, email=?,"
+					+ " homePage=?, job=?, hobby=?, photo=?, content=?, userInfor=? where mid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getNickName());
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getGender());
+			pstmt.setString(4, vo.getBirthday());	
+			pstmt.setString(5, vo.getTel());
+			pstmt.setString(6, vo.getAddress());
+			pstmt.setString(7, vo.getEmail());
+			pstmt.setString(8, vo.getHomePage());
+			pstmt.setString(9, vo.getJob());
+			pstmt.setString(10, vo.getHobby());
+			pstmt.setString(11, vo.getPhoto());
+			pstmt.setString(12, vo.getContent());
+			pstmt.setString(13, vo.getUserInfor());
+			pstmt.setString(14, vo.getMid());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+	public ArrayList<MemberVO> getMemberList(int startIndexNo, int pageSize) {
+		ArrayList<MemberVO> vos = new ArrayList<>();
+		try {
+			sql = "select *, timestampdiff(day,lastDate, now()) as deleteDiff from member order by idx desc limit ?,?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new MemberVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setName(rs.getString("name"));
+				vo.setGender(rs.getString("gender"));
+				vo.setBirthday(rs.getString("birthday"));
+				vo.setTel(rs.getString("tel"));
+				vo.setAddress(rs.getString("address"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+				vo.setJob(rs.getString("job"));
+				vo.setHobby(rs.getString("hobby"));
+				vo.setPhoto(rs.getString("photo"));
+				vo.setContent(rs.getString("content"));
+				vo.setUserInfor(rs.getString("userInfor"));
+				vo.setUserDel(rs.getString("userDel"));
+				vo.setPoint(rs.getInt("point"));
+				vo.setLevel(rs.getInt("level"));
+				vo.setVisitCnt(rs.getInt("visitCnt"));
+				vo.setStartDate(rs.getString("startDate"));
+				vo.setLastDate(rs.getString("lastDate"));
+				vo.setTodayCnt(rs.getInt("todayCnt"));
+				vo.setSalt(rs.getString("salt"));
+				
+				vo.setDeleteDiff(rs.getInt("deleteDiff"));
+				
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+
+	public int getTotRecCnt() {
+		int totRecCnt = 0;
+		try {
+			sql = "select count(idx) as cnt from member";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rs.next();
+			totRecCnt = rs.getInt("cnt");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return totRecCnt;
+	}
+	//회원 탈퇴 신청
+	public void setDeleteAskOk(String mid) {
+		try {
+			sql = "update member set userDel = 'OK' where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
+
+	public void setMemberDelete(int idx) {
+		try {
+			sql = "delete from member where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
 }

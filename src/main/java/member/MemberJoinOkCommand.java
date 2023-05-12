@@ -30,8 +30,6 @@ public class MemberJoinOkCommand implements MemberInterface {
 		String content = request.getParameter("content")==null ? "" : request.getParameter("content");
 		String userInfor = request.getParameter("userInfor")==null ? "" : request.getParameter("userInfor");
 		
-		System.out.println("address : " + address);
-		
 		// 취미 전송에 대한 처리
 		String[] hobbys = request.getParameterValues("hobby");
 		String hobby = "";
@@ -87,8 +85,6 @@ public class MemberJoinOkCommand implements MemberInterface {
 		vo.setContent(content);
 		vo.setUserInfor(userInfor);
 		vo.setSalt(salt);
-		
-		System.out.println("vo : " + vo);
 		
 		int res = dao.setMemberJoinOk(vo);
 		
