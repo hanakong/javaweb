@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("/mapping/Test1") //접근 시 사용할 URL
+@WebServlet("/mapping/Test1")
+// @WebServlet({"/mapping/Test1","/mapping/Test4"})
 public class Test1Controller extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println("이곳은....서블릿의 /mapping/Test1 입니다."); //디렉토리 패턴
+		System.out.println("이곳은....서블릿의 /mapping/Test1 입니다.");
 		
 		//                 /WEB-INF/study2/mapping/test1.jsp
 		String viewPage = "/WEB-INF/study2/mapping/test1.jsp";
-		request.getRequestDispatcher(viewPage).forward(request, response);
 		
+		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
 }

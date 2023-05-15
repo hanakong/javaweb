@@ -53,8 +53,10 @@
 					<div class="dropdown">
 				    <button type="button" class="btn text-light dropdown-toggle" data-toggle="dropdown">study2</button>
 				    <div class="dropdown-menu">
-				      <a class="dropdown-item" href="#">URL 매핑</a>
-				      <a class="dropdown-item" href="#">Link 2</a>
+				      <a class="dropdown-item" href="${ctp}/FileUpLoad1.st">파일업로드(싱글)연습</a>
+				      <a class="dropdown-item" href="${ctp}/FileUpLoad2.st">파일업로드(멀티)연습</a>
+				      <a class="dropdown-item" href="${ctp}/FileUpLoad3.st">파일업로드(멀티)연습2</a>
+				      <a class="dropdown-item" href="${ctp}/FileUpLoad4.st">파일업로드(멀티)연습3</a>
 				      <a class="dropdown-item" href="#">Link 3</a>
 					  </div>  
 					</div>

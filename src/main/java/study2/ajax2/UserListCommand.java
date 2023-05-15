@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import study2.StudyInterface;
+
 public class UserListCommand implements StudyInterface {
 
 	@Override

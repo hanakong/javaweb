@@ -28,9 +28,9 @@ public class AjaxTest2 extends HttpServlet {
 			str = "찾는 자료가 없습니다.";
 		}
 		else {
-			str = vo.getMid() +" / "+ vo.getName() + " / " + vo.getNickName() + " / " + vo.getGender() + " / " + vo.getPoint();
+			str = vo.getMid() + "/" + vo.getName() + "/" + vo.getNickName() + "/" + vo.getGender() + "/" + vo.getPoint();
 		}
 		
-		response.getWriter().write(str);//헤드에 내용을 담아 보낸다. 이때 보내는 내용은 무조건 문자형식이어야한다.
+		response.getWriter().write(str);
 	}
 }

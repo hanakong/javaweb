@@ -23,6 +23,9 @@ public class AjaxTest1_2 extends HttpServlet {
 		
 		MemberVO vo = dao.getMemberMidCheck(mid);
 		
+//		PrintWriter out = response.getWriter();
+//		out.print(vo.getName());
+		
 		String name = "";
 		if(vo.getName() == null) {
 			name = "찾는 자료가 없습니다.";
@@ -30,7 +33,7 @@ public class AjaxTest1_2 extends HttpServlet {
 		else {
 			name = vo.getName();
 		}
-//		PrintWriter out = response.getWriter();
-		response.getWriter().write(name);//헤드에 내용을 담아 보낸다. 이때 보내는 내용은 무조건 문자형식이어야한다.
+		
+		response.getWriter().write(name);
 	}
 }

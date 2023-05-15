@@ -30,7 +30,7 @@ public class BoardController extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		
-		if(com.equals("/BoardList")) {
+		else if(com.equals("/BoardList")) {
 			command = new BoradListCommand(); //BoradListCommand 객체 생성
 			command.execute(request, response);
 			viewPage += "/boardList.jsp";

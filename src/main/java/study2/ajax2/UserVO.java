@@ -1,7 +1,6 @@
 package study2.ajax2;
 
 public class UserVO {
-	
 	private int idx;
 	private String mid;
 	private String name;
@@ -40,6 +39,6 @@ public class UserVO {
 	}
 	@Override
 	public String toString() {
-		return "UserVO [address=" + address + ", age=" + age + ", idx=" + idx + ", mid=" + mid + ", name=" + name + "]";
+		return "UserVO [idx=" + idx + ", mid=" + mid + ", name=" + name + ", age=" + age + ", address=" + address + "]";
 	}
 }

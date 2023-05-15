@@ -19,7 +19,7 @@ public class UserDAO {
 	
 	UserVO vo = null;
 
-	// 유저 전체 조회
+	// User 전체 조회처리
 	public ArrayList<UserVO> getUserList() {
 		ArrayList<UserVO> vos = new ArrayList<>();
 		try {
@@ -39,13 +39,13 @@ public class UserDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("sql오류 : " + e.getMessage());
-		} finally {
+		}	finally {
 			getConn.rsClose();
 		}
 		return vos;
 	}
-	
-	//  회원 등록하기
+
+	// 회원 등록하기.
 	public String setUserInput(UserVO vo) {
 		String res = "0";
 		try {
@@ -59,11 +59,12 @@ public class UserDAO {
 			res = "1";
 		} catch (SQLException e) {
 			System.out.println("sql오류 : " + e.getMessage());
-		} finally {
+		}	finally {
 			getConn.pstmtClose();
 		}
 		return res;
 	}
+
 	// user 검색하기
 	public String getMidSearch(String mid) {
 		String res = "0";
@@ -72,17 +73,16 @@ public class UserDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
-			if(!rs.next()) {
-				res = "1";
-			}
+			if(!rs.next()) res = "1";
 		} catch (SQLException e) {
 			System.out.println("sql오류 : " + e.getMessage());
-		} finally {
+		}	finally {
 			getConn.rsClose();
 		}
 		return res;
 	}
-	// User 삭제
+
+	// User 삭제처리
 	public String setUserDelete(int idx) {
 		String res = "0";
 		try {
@@ -93,12 +93,13 @@ public class UserDAO {
 			res = "1";
 		} catch (SQLException e) {
 			System.out.println("sql오류 : " + e.getMessage());
-		} finally {
+		}	finally {
 			getConn.pstmtClose();
 		}
 		return res;
 	}
-	//개별 조회 
+
+	// 아이디로 검색처리
 	public UserVO getIdxSearch(int idx) {
 		vo = new UserVO();
 		try {
@@ -115,30 +116,30 @@ public class UserDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("sql오류 : " + e.getMessage());
-		} finally {
+		}	finally {
 			getConn.rsClose();
 		}
 		return vo;
 	}
 
-	public String setUpdate(UserVO vo, String sMid) {
+	// user 수정하기
+	public String setUserUpdate(UserVO vo) {
 		String res = "0";
 		try {
-			sql = "update user set mid=?, name=?, age=?, address=? where mid=?";
-      pstmt = conn.prepareStatement(sql);
-      pstmt.setString(1, vo.getMid());
-      pstmt.setString(2, vo.getName());
-      pstmt.setInt(3, vo.getAge());
-      pstmt.setString(4, vo.getAddress());
-      pstmt.setString(5, sMid);
-      pstmt.executeUpdate();
-      res = "1";
+			sql = "update user set mid=?,name=?,age=?,address=? where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getName());
+			pstmt.setInt(3, vo.getAge());
+			pstmt.setString(4, vo.getAddress());
+			pstmt.setInt(5, vo.getIdx());
+			pstmt.executeUpdate();
+			res = "1";
 		} catch (SQLException e) {
 			System.out.println("sql오류 : " + e.getMessage());
-		} finally {
+		}	finally {
 			getConn.pstmtClose();
 		}
-		
 		return res;
 	}
 	

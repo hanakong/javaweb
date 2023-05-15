@@ -1,21 +1,20 @@
-package study2.uuid;
+package study2.login;
 
 import java.io.IOException;
-import java.util.UUID;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import study2.StudyInterface;
-
-public class UuidCommand implements StudyInterface {
+public class ListCommand2 implements LoginInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UUID uid = UUID.randomUUID();
+		LoginDAO dao = new LoginDAO();
 		
-		request.setAttribute("uid", uid);
+		//ArrayList<LoginVO> vos = dao.getLoginList();
+		
+		//request.setAttribute("vos", vos);
 	}
-
 }
