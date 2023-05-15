@@ -15,11 +15,23 @@ public class FileDownLoadCommand implements StudyInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//경로는 안넘어오므로 다시 적어준다.
-		String realPath = request.getServletContext().getRealPath("/images/pdstest");
+		/*
+		  1. 값을 넘겨받는다.
+		  2. 파일 업로드 경로 확인
+		  3. 경로와 파일명(합쳐서) 객체 생성
+		  4. 
+		 */
 		
 		//multipartrequest? 그냥 request?
 		String fName = request.getParameter("file") == null ? "" : request.getParameter("file");
+
+		//경로는 안넘어오므로 다시 적어준다.
+		String realPath = request.getServletContext().getRealPath("/images/pdstest");
+//  getServletContext : 페이지에 대한 서블릿 실행 환경 정보를 담고 있는 application 내장 객체를 리턴한다
+//	getContextPath() : 프로젝트 path만 얻어옴 
+//  getRealPath() : 서버or 로컬 웹 어플리케이션 서버의 설정값을 반환한다.(절대경로 가져오기?)
+//	getRequestURI()	: 프로젝트와 파일경로까지 얻어옴 (전체 URL중 Port번호 다음부터 마지막 문자열까지 반환함)
+//	getRequestURL() : 전체 경로를 가져옴
 		
 		// 다운로드 하려면 경로를 합쳐줘야한다 그냥 +를 하면 /images/pdstesta.jpg가 되므로 중간에 /를 하나 넣어줘야한다.
 		File file  = new File(realPath +"/"+ fName); // 혹은 19번줄 getRealPagt("/images/pdstest/")라고 넣어도 된다.
