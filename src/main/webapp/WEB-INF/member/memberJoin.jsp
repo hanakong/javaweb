@@ -56,7 +56,7 @@
     	// 모든체크를 마치고 정상처리시에 수행
     	else {
     		tel2 = " ";
-    		tel2 = " ";
+    		tel3 = " ";
     		tel = tel1 + "-" + tel2 + "-" + tel3;
     		submitFlag = 1;
     	}
