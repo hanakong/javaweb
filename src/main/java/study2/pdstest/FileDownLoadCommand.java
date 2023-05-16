@@ -93,7 +93,7 @@ public class FileDownLoadCommand implements StudyInterface {
 		 int data = 0; //비교하기 위한 변수
 		 
 		 while((data = fis.read(b,0,b.length)) != -1) { // read(byte크기, 시작위치, 끝 위치) b.legth만큼만 읽어서 배열의 0번째부터 b의 크기로 저장
-			 sos.write(b, 0, data); // 데이터가 딱 2048로 떨어지지 않으므로 // 0부터 data만큼 b의 크기만큼 읽어라
+			 sos.write(b, 0, data); // 데이터가 딱 2048로 떨어지지 않으므로 // 0부터 data만큼 b의 크기만큼 다운로드?
 		 }
 		 sos.flush(); // 혹시 남았을지도 모를 데이터를 보내준다.
 		 // flush()는 현재 버퍼에 저장되어 있는 내용을 클라이언트로 전송하고 버퍼를 비운다.
