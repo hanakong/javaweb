@@ -81,7 +81,7 @@ public class PdsTotalDownCommand implements PdsInterface {
 		 sos.close();
 		 fis.close();
 		 // 클라이언트로 전송완료
-		 
+		 //D:\javaweb\JSP\works\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\javaweb\images\pds\temp
 		 //서버에 존재하는 zip파일 삭제처리한다.
 		 new File(zipName + zipName).delete();
 		 
