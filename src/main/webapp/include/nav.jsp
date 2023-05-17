@@ -57,7 +57,10 @@
 				      <a class="dropdown-item" href="${ctp}/FileUpLoad2.st">파일업로드(멀티)연습</a>
 				      <a class="dropdown-item" href="${ctp}/FileUpLoad3.st">파일업로드(멀티)연습2</a>
 				      <a class="dropdown-item" href="${ctp}/FileUpLoad4.st">파일업로드(멀티)연습3</a>
-				      <a class="dropdown-item" href="#">Link 3</a>
+				      <a class="dropdown-item" href="${ctp}/ModalTest1.st">Modal연습1</a>
+				      <a class="dropdown-item" href="${ctp}/ModalTest2.st">Modal연습2</a>
+				      <a class="dropdown-item" href="${ctp}/Calendar.st">달력연습1</a>
+				      <a class="dropdown-item" href="${ctp}/Calendar2.st">달력연습2</a>
 					  </div>  
 					</div>
 				</li>
@@ -66,6 +69,7 @@
 				    <button type="button" class="btn text-light dropdown-toggle" data-toggle="dropdown">Mypage</button>
 				    <div class="dropdown-menu">
 				      <a class="dropdown-item" href="${ctp}/MemberMain.mem">회원메인방</a>
+				      <a class="dropdown-item" href="${ctp}/ScheduleList.sc">스케쥴관리</a>
 				      <a class="dropdown-item" href="${ctp}/MemberPwdUpdate.mem">회원비밀번호 변경</a>
 				      <a class="dropdown-item" href="${ctp}/MemberPwdCheckForm.mem">회원정보수정</a>
 				      <a class="dropdown-item" href="${ctp}/MemberList.mem">회원리스트</a>
