@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
 @WebServlet("*.mem")
@@ -20,6 +21,9 @@ public class MemberController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String com = uri.substring(uri.lastIndexOf("/"),uri.lastIndexOf("."));
 		
+		HttpSession session = request.getSession();
+		int level = session.getAttribute("sLevel")==null ? 99 : (int) session.getAttribute("sLevel");
+				
 		if(com.equals("/MemberLogin")) {
 			command = new MemberLoginCommand();
 			command.execute(request, response);
@@ -53,17 +57,21 @@ public class MemberController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/memberNickCheck.jsp";
 		}
-		else if(com.equals("/MemberList")) {
-			command = new MemberListCommand();
-			command.execute(request, response);
-			viewPage += "/memberList.jsp";
+		else if(level > 4) {	// 비회원인경우는 초기화면으로 보내버린다.
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/");
+			dispatcher.forward(request, response);
 		}
 		else if(com.equals("/MemberMain")) {
 			command = new MemberMainCommand();
 			command.execute(request, response);
 			viewPage += "/memberMain.jsp";
 		}
-		else if(com.equals("/MemberPwdUpdate")) { // 화면에 그림이 나와야한다?
+		else if(com.equals("/MemberList")) {
+			command = new MemberListCommand();
+			command.execute(request, response);
+			viewPage += "/memberList.jsp";
+		}
+		else if(com.equals("/MemberPwdUpdate")) {
 			viewPage += "/memberPwdUpdate.jsp";
 		}
 		else if(com.equals("/MemberPwdUpdateOk")) {
@@ -71,7 +79,7 @@ public class MemberController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
 		}
-		else if(com.equals("/MemberPwdCheckForm")) { 
+		else if(com.equals("/MemberPwdCheckForm")) {
 			viewPage += "/memberPwdCheckForm.jsp";
 		}
 		else if(com.equals("/MemberPwdCheckOk")) {
@@ -93,6 +101,11 @@ public class MemberController extends HttpServlet {
 			command = new MemberDeleteAskCommand();
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/MemberMessageInput")) {
+			command = new MemberMessageInputCommand();
+			command.execute(request, response);
+			return;
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

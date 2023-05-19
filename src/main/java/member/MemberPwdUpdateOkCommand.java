@@ -16,8 +16,8 @@ public class MemberPwdUpdateOkCommand implements MemberInterface {
 		HttpSession session = request.getSession();
 		
 		String mid = (String) session.getAttribute("sMid");
-		String oldPwd = request.getParameter("oldPwd") == null ? "" : request.getParameter("oldPwd"); // 기존 비밀번호와 확인을 위해 받았다 
-		String newPwd = request.getParameter("newPwd") == null ? "" : request.getParameter("newPwd"); 
+		String oldPwd = request.getParameter("oldPwd")==null ? "" : request.getParameter("oldPwd");
+		String newPwd = request.getParameter("newPwd")==null ? "" : request.getParameter("newPwd");
 		
 		MemberDAO dao = new MemberDAO();
 		MemberVO vo = dao.getMemberMidCheck(mid);
@@ -27,7 +27,7 @@ public class MemberPwdUpdateOkCommand implements MemberInterface {
 		newPwd = security.encryptSHA256(vo.getSalt()+newPwd);
 		
 		if(!oldPwd.equals(vo.getPwd())) {
-			request.setAttribute("msg", "비밀번호를 확인해주세요");
+			request.setAttribute("msg", "비밀번호를 확인하세요");
 			request.setAttribute("url", request.getContextPath()+"/MemberPwdUpdate.mem");
 			return;
 		}
@@ -35,12 +35,13 @@ public class MemberPwdUpdateOkCommand implements MemberInterface {
 		int res = dao.setMemberPwdUpdateOk(mid, newPwd);
 		
 		if(res == 1) {
-			request.setAttribute("msg", "비밀번호 변경 성공!");
+			request.setAttribute("msg", "비밀번호가 변경 되었습니다.");
 			request.setAttribute("url", request.getContextPath()+"/MemberMain.mem");
 		}
 		else {
-			request.setAttribute("msg", "비밀번호 변경 실패");
+			request.setAttribute("msg", "비밀번호 변경 실패~~");
 			request.setAttribute("url", request.getContextPath()+"/MemberPwdUpdate.mem");
 		}
 	}
+
 }

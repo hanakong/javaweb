@@ -15,6 +15,8 @@ import study2.ajax2.UserInputCommand;
 import study2.ajax2.UserListCommand;
 import study2.ajax2.UserSearchCommand;
 import study2.ajax2.UserUpdateCommand;
+import study2.api.crime.DeleteCrimeDataCommand;
+import study2.api.crime.SaveCrimeDataCommand;
 import study2.calendar.Calendar2Command;
 import study2.calendar.CalendarCommand;
 import study2.modal.ModalTest2Command;
@@ -161,7 +163,28 @@ public class StudyController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/calendar/calendar2.jsp";
 		}
-		
+		else if(com.equals("/APITest")){
+			viewPage += "/api/apiTest.jsp";
+		}
+		else if(com.equals("/CrimeAPI")){
+			viewPage += "/api/crime/crimeAPI.jsp";
+		}
+		else if(com.equals("/SaveCrimeData")){
+			command = new SaveCrimeDataCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/DeleteCrimeData")){
+			command = new DeleteCrimeDataCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/PhotoView1")){
+			viewPage += "/photo/photoView1.jsp";
+		}
+		else if(com.equals("/PhotoView2")){
+			viewPage += "/photo/photoView2.jsp";
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

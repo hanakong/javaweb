@@ -15,13 +15,13 @@ public class ScheduleMenuCommand implements ScheduleInterface {
 		HttpSession session = request.getSession();
 		String mid = (String) session.getAttribute("sMid");
 		
-		String ymd = request.getParameter("ymd") == null ? "" : request.getParameter("ymd");
+		String ymd = request.getParameter("ymd")==null ? "" : request.getParameter("ymd");
 		
-		String[] ymds = ymd.split("-"); // 2023-5-3
+		String[] ymds = ymd.split("-");			// 2023-5-3
 		if(ymds[1].length() == 1) ymds[1] = "0" + ymds[1];
 		if(ymds[2].length() == 1) ymds[2] = "0" + ymds[2];
 		
-		ymd = ymds[0] + "-" + ymds[1] + "-" + ymds[2]; // 2023-05-03
+		ymd = ymds[0] + "-" + ymds[1] + "-" + ymds[2];		// 2023-05-03
 		
 		ScheduleDAO dao = new ScheduleDAO();
 		
@@ -31,4 +31,5 @@ public class ScheduleMenuCommand implements ScheduleInterface {
 		request.setAttribute("ymd", ymd);
 		request.setAttribute("scheduleCnt", vos.size());
 	}
+
 }

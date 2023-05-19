@@ -31,3 +31,16 @@ create table member (
 desc member;
 
 select * from member;
+
+/* 실시간 대화를 위한 테이블 (회원전용) */
+create table memberChat(
+	idx int not null auto_increment primary key,
+	nickName varchar(20) not null,
+	chat varchar(100) not null
+);
+
+desc memberChat;
+
+select * from memberChat order by idx desc limit 50;
+
+select chat.* from (select * from memberChat order by idx desc limit 50) as chat order by idx asc;

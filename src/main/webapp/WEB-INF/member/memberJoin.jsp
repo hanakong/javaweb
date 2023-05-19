@@ -21,12 +21,21 @@
     	// 아이디,닉네임,성명,이메일,홈페이지,전화번호,비밀번호 등등....
     	
     	let regMid = /^[a-zA-Z0-9_]{4,20}$/;
+    	let regPwd = /(?=.*[0-9a-zA-Z]).{4,20}$/;
+      let regNickName = /^[가-힣]+$/;
+      let regName = /^[가-힣a-zA-Z]+$/;
+      let regEmail =/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+      let regURL = /^(https?:\/\/)?([a-z\d\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/;
     	let regTel = /\d{2,3}-\d{3,4}-\d{4}$/g;
     	
     	let mid = myform.mid.value.trim();
+    	let pwd = myform.pwd.value;
+    	let nickName = myform.nickName.value;
+    	let name = myform.name.value;
     	let email1 = myform.email1.value.trim();
     	let email2 = myform.email2.value;
     	let email = email1 + "@" + email2;
+    	let homePage = myform.homePage.value;
     	let tel1 = myform.tel1.value;
     	let tel2 = myform.tel2.value.trim();
     	let tel3 = myform.tel3.value.trim();
@@ -34,6 +43,10 @@
     	
     	let submitFlag = 0;		// 모든 체크가 정상으로 종료되게되면 submitFlag는 1로 변경처리될수 있게 한다.
     	
+    	// 사진 업로드 체크를 위한 준비
+    	let maxSize = 1024 * 1024 * 2; 	// 업로드할 회원사진의 용량은 2MByte까지로 제한한다.
+    	let fName = myform.fName.value;
+    	let ext = fName.substring(fName.lastIndexOf(".")+1).toUpperCase();	// 파일 확장자 발췌후 대문자로 변환
     	
     	// 앞의 정규식으로 정의된 부분에 대한 유효성체크
     	if(!regMid.test(mid)) {
@@ -41,8 +54,38 @@
     		myform.mid.focus();
     		return false;
     	}
-    	// 기타 체크....
-    	else if(tel2 != "" && tel3 != "") {
+    	else if(!regPwd.test(pwd)) {
+        alert("비밀번호는 1개이상의 문자와 특수문자 조합의 6~24 자리로 작성해주세요.");
+        myform.pwd.focus();
+        return false;
+      }
+      else if(!regNickName.test(nickName)) {
+        alert("닉네임은 한글만 사용가능합니다.");
+        myform.nickName.focus();
+        return false;
+      }
+      else if(!regName.test(name)) {
+        alert("성명은 한글과 영문대소문자만 사용가능합니다.");
+        myform.name.focus();
+        return false;
+      }
+      else if(!regEmail.test(email)) {
+        alert("이메일 형식에 맞지않습니다.");
+        myform.email1.focus();
+        return false;
+      }
+      else if((homePage != "http://" && homePage != "")) {
+        if(!regURL.test(homePage)) {
+	        alert("작성하신 홈페이지 주소가 URL 형식에 맞지않습니다.");
+	        myform.homePage.focus();
+	        return false;
+        }
+        else {
+	    	  submitFlag = 1;
+	      }
+      }
+    	
+    	if(tel2 != "" && tel3 != "") {
     	  if(!regTel.test(tel)) {
 	    		alert("전화번호형식을 확인하세요.(000-0000-0000)");
 	    		myform.tel2.focus();
@@ -52,9 +95,7 @@
     		  submitFlag = 1;
     	  }
     	}
-    	
-    	// 모든체크를 마치고 정상처리시에 수행
-    	else {
+    	else {		// 전화번호를 입력하지 않을시 DB에는 '010- - '의 형태로 저장하고자 한다.
     		tel2 = " ";
     		tel3 = " ";
     		tel = tel1 + "-" + tel2 + "-" + tel3;
@@ -68,6 +109,29 @@
     	let extraAddress = myform.extraAddress.value + " ";
   		myform.address.value = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress + "/";
     	
+  		// 전송전에 파일에 관한 사항체크...(회원사진의 내역이 비었으면 noimage를 hidden필드인 photo필드에 담아서 전송한다.)
+  		if(fName.trim() == "") {
+  			myform.photo.value = "noimage";
+				submitFlag = 1;
+  		}
+  		else {
+  			let fileSize = document.getElementById("file").files[0].size;
+  			
+  			if(ext != "JPG" && ext != "GIF" && ext != "PNG") {
+  				alert("업로드 가능한 파일은 'JPG/GIF/PNG'파일 입니다.");
+  				return false;
+  			}
+  			else if(fName.indexOf(" ") != -1) {
+  				alert("업로드 파일명에 공백을 포함할 수 없습니다.");
+  				return false;
+  			}
+  			else if(fileSize > maxSize) {
+  				alert("업로드 파일의 크기는 2MByte를 초과할수 없습니다.");
+  				return false;
+  			}
+    		submitFlag = 1;
+    	}
+  		
     	// 전송전에 모든 체크가 끝나면 submitFlag가 1로 되게된다. 이때 값들을 서버로 전송처리한다.
     	if(submitFlag == 1) {
     		if(idCheckSw == 0) {
@@ -86,7 +150,7 @@
     		}
     	}
     	else {
-    		alert("폼의 내용을 확인하세요.");
+    		alert("회원가입 실패~~ 폼의 내용을 확인하세요.");
     	}
     	
     }
@@ -129,7 +193,7 @@
 <jsp:include page="/include/header.jsp" />
 <p><br/></p>
 <div class="container">
-  <form name="myform" method="post" action="${ctp}/MemberJoinOk.mem" class="was-validated">
+  <form name="myform" method="post" action="${ctp}/MemberJoinOk.mem" class="was-validated" enctype="multipart/form-data">
     <h2>회 원 가 입</h2>
     <br/>
     <div class="form-group">
@@ -141,8 +205,8 @@
       <input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요." name="pwd" required />
     </div>
     <div class="form-group">
-      <label for="nickName">닉네임 : &nbsp; &nbsp;<input type="button" id="nickNameBtn" value="닉네임 중복체크" class="btn btn-secondary btn-sm" onclick="nickCheck()"/></label>
-      <input type="text" class="form-control" id="nickName" placeholder="별명을 입력하세요." name="nickName" required />
+      <label for="nickName">닉네임(한글) : &nbsp; &nbsp;<input type="button" id="nickNameBtn" value="닉네임 중복체크" class="btn btn-secondary btn-sm" onclick="nickCheck()"/></label>
+      <input type="text" class="form-control" id="nickName" placeholder="별명(한글)을 입력하세요." name="nickName" required />
     </div>
     <div class="form-group">
       <label for="name">성명 :</label>
@@ -304,10 +368,12 @@
     </div>
     <button type="button" class="btn btn-secondary" onclick="fCheck()">회원가입</button> &nbsp;
     <button type="reset" class="btn btn-secondary">다시작성</button> &nbsp;
-    <button type="button" class="btn btn-secondary" onclick="">돌아가기</button>
+    <button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberLogin.mem';">돌아가기</button>
+    
     <input type="hidden" name="email" />
     <input type="hidden" name="tel" />
     <input type="hidden" name="address" />
+    <input type="hidden" name="photo"/>
   </form>
 </div>
 <p><br/></p>

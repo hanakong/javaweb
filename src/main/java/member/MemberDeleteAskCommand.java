@@ -13,7 +13,7 @@ public class MemberDeleteAskCommand implements MemberInterface {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		String mid = (String)session.getAttribute("sMid");
+		String mid = (String) session.getAttribute("sMid");
 		
 		MemberDAO dao = new MemberDAO();
 		
@@ -21,7 +21,8 @@ public class MemberDeleteAskCommand implements MemberInterface {
 		
 		session.invalidate();
 		
-		request.setAttribute("msg", "탈퇴 성공 \\n 이용해주셔서 감사합니다.");
+		request.setAttribute("msg", "회원에서 탈퇴되셨습니다.\\n같은 아이디로 재가입 하실수 없습니다.");
 		request.setAttribute("url", request.getContextPath()+"/");
 	}
+
 }

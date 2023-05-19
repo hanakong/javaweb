@@ -61,6 +61,9 @@
 				      <a class="dropdown-item" href="${ctp}/ModalTest2.st">Modal연습2</a>
 				      <a class="dropdown-item" href="${ctp}/Calendar.st">달력연습1</a>
 				      <a class="dropdown-item" href="${ctp}/Calendar2.st">달력연습2</a>
+				      <a class="dropdown-item" href="${ctp}/APITest.st">API연습</a>
+				      <a class="dropdown-item" href="${ctp}/PhotoView1.st">사진 미리보기1</a>
+				      <a class="dropdown-item" href="${ctp}/PhotoView2.st">사진 미리보기2</a>
 					  </div>  
 					</div>
 				</li>

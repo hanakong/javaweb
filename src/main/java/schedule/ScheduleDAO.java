@@ -24,10 +24,10 @@ public class ScheduleDAO {
 		ArrayList<ScheduleVO> vos = new ArrayList<>();
 		try {
 			if(sw == 0) {
-			sql = "select * from schedule where mid=? and date_format(sDate, '%Y-%m')=? order by sDate, part";
+			  sql = "select * from schedule where mid=? and date_format(sDate, '%Y-%m')=? order by sDate, part";
 			}
-			if(sw == 1) {
-				sql = "select * from schedule where mid=? and date_format(sDate, '%Y-%m-%d')=?";
+			else {
+				sql = "select * from schedule where mid=? and date_format(sDate, '%Y-%m-%d')=?";				
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
@@ -51,7 +51,8 @@ public class ScheduleDAO {
 		}
 		return vos;
 	}
-	// 스케쥴 등록
+
+	// 스케줄 등록
 	public String setScheduleInputOk(ScheduleVO vo) {
 		String res = "0";
 		try {
@@ -70,4 +71,41 @@ public class ScheduleDAO {
 		}
 		return res;
 	}
+
+	// 스케줄 수정처리
+	public String setScheduleUpdateOk(ScheduleVO vo) {
+		String res = "0";
+		try {
+			sql = "update schedule set part=?, content=? where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPart());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setInt(3, vo.getIdx());
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
+	// 스케줄 삭제처리
+	public String setScheduleDeleteOk(int idx) {
+		String res = "0";
+		try {
+			sql = "delete from schedule where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+			res = "1";
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+		return res;
+	}
+
 }
